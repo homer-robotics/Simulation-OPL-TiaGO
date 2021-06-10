@@ -94,20 +94,8 @@ POSSIBILITY OF SUCH DAMAGE.
     <arg name="use_dynamic_footprint" value="false"/>
   </include>
 
-  <!-- navigation -->
-  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)"/>
-
-  <include file="$(find tiago_2dnav)/launch/localization.launch">
-  </include>
-
   <node pkg="topic_tools" type="relay" name="relay_scan" args="/scan_raw /scan" />
   <node pkg="topic_tools" type="relay" name="relay_rgbd_scan" args="/scan_raw /rgbd_scan" />
-
-  <include file="$(find tiago_2dnav)/launch/move_base.launch">
-    <arg name="public_sim"  value="true"/>
-    <arg name="local_planner" value="teb"/>
-    <arg name="rgbd_sensors" value="false"/>
-  </include>
 
   <!-- spawn objects to the world -->
   <node pkg="tmc_wrs_gazebo_worlds" type="spawn_objects" name="spawn_objects" args="--seed $(arg seed) --percategory $(arg per_category) --obstacles $(arg obstacles) --perrow $(arg per_row)" output="screen" />
